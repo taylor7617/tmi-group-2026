@@ -1,1 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TMI Group | 42240 Infrastructure Circulation Grid</title>
+  <meta name="description" content="Authoritative geospatial readiness and circulation ledger for Taylor Made Infrastructure Group LLC (NAICS 531120)." />
+  <style>
+    :root{
+      --bg:#05070b;
+      --panel:#0b111a;
+      --panel2:#071018;
+      --text:#e7f1ff;
+      --muted:#9bb0c9;
+      --line:rgba(120,190,255,.18);
+      --teal:#3be7ff;
+      --teal2:#00b3ff;
+      --amber:#ffcc66;
+      --green:#3dff9a;
+      --red:#ff4d6d;
+      --shadow:0 18px 45px rgba(0,0,0,.55);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(0,179,255,.18), transparent 60%),
+        radial-gradient(800px 500px at 10% 10%, rgba(59,231,255,.14), transparent 60%),
+        radial-gradient(900px 520px at 90% 20%, rgba(59,231,255,.10), transparent 55%),
+        linear-gradient(180deg, #03060a, #05070b 55%, #03060a);
+      color:var(--text);
+      line-height:1.35;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 60px;}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 16px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(11,17,26,.78), rgba(7,16,24,.65));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      position:sticky; top:10px; z-index:10;
+      backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:260px;}
+    .brand img{
+      width:42px; height:42px; border-radius:12px;
+      box-shadow:0 0 0 1px rgba(59,231,255,.25), 0 0 28px rgba(0,179,255,.18);
+    }
+    .brand .name{font-weight:800; letter-spacing:.3px}
+    .brand .sub{color:var(--muted); font-size:.88rem}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .chip{
+      padding:9px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(5,10,16,.55);
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    .chip:hover{border-color:rgba(59,231,255,.35); color:var(--text)}
+    .hero{
+      margin-top:18px;
+      padding:26px 18px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:
+        radial-gradient(700px 220px at 12% 0%, rgba(59,231,255,.14), transparent 65%),
+        radial-gradient(700px 260px at 88% 10%, rgba(0,179,255,.12), transparent 60%),
+        linear-gradient(180deg, rgba(11,17,26,.82), rgba(7,16,24,.62));
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 10px; font-size:1.85rem; letter-spacing:.2px}
+    .hero p{margin:0; color:var(--muted); max-width:900px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      grid-column: span 6;
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(11,17,26,.80), rgba(7,16,24,.62));
+      box-shadow:0 10px 30px rgba(0,0,0,.38);
+    }
+    .card h2{margin:0 0 8px; font-size:1.1rem}
+    .card p{margin:0; color:var(--muted)}
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:12px;
+      border:1px solid rgba(59,231,255,.28);
+      background:linear-gradient(180deg, rgba(0,179,255,.16), rgba(59,231,255,.06));
+      color:var(--text);
+      font-weight:700;
+    }
+    .btn:hover{border-color:rgba(59,231,255,.45)}
+    .btn.secondary{
+      border-color:rgba(155,176,201,.22);
+      background:rgba(5,10,16,.45);
+      color:var(--muted);
+      font-weight:650;
+    }
+    .legend{
+      grid-column: span 12;
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(11,17,26,.72), rgba(7,16,24,.58));
+    }
+    .kvs{display:grid; grid-template-columns: repeat(12, 1fr); gap:10px; margin-top:10px}
+    .kv{
+      grid-column: span 4;
+      border:1px solid rgba(120,190,255,.16);
+      border-radius:14px;
+      padding:12px;
+      background:rgba(3,6,10,.35);
+    }
+    .kv b{display:block; margin-bottom:6px}
+    .kv span{color:var(--muted); font-size:.95rem}
+    .pill{display:inline-block; padding:2px 10px; border-radius:999px; font-size:.82rem; margin-left:8px}
+    .p-teal{background:rgba(59,231,255,.12); border:1px solid rgba(59,231,255,.22)}
+    .p-amber{background:rgba(255,204,102,.12); border:1px solid rgba(255,204,102,.22)}
+    .p-green{background:rgba(61,255,154,.10); border:1px solid rgba(61,255,154,.18)}
+    .p-red{background:rgba(255,77,109,.10); border:1px solid rgba(255,77,109,.18)}
+    .footer{
+      margin-top:14px;
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:rgba(5,10,16,.45);
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    @media (max-width: 880px){
+      .card{grid-column: span 12}
+      .kv{grid-column: span 12}
+      .brand{min-width:unset}
+      .nav{justify-content:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/tmi-logo.png" alt="TMI logo" />
+        <div>
+          <div class="name">Taylor Made Infrastructure Group (TMI)</div>
+          <div class="sub">42240 Infrastructure Circulation Grid • NAICS 531120</div>
+        </div>
+      </div>
+      <div class="nav">
+        <a class="chip" href="#grid">Grid SOP</a>
+        <a class="chip" href="#ledgers">Ledgers</a>
+        <a class="chip" href="#commerce">Commerce</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
+    </div>
 
+    <section class="hero" id="grid">
+      <h1>Authoritative Readiness + Circulation Ledger (One-of-One)</h1>
+      <p>
+        This site is the public-facing shell of the 42240 grid. The map remains the authority.
+        No negotiations occur here. Availability precedes discussion.
+      </p>
+      <div class="btnrow">
+        <a class="btn" href="https://www.google.com/maps/d/edit?mid=1lBzuF9XyewzHmNiVOufMdqrbng_5Xf8&usp=sharing" target="_blank" rel="noopener">
+          Open 42240 Grid Map →
+        </a>
+        <a class="btn secondary" href="#ledgers">View Ledger Structure</a>
+        <a class="btn secondary" href="#commerce">Open Store & Payments</a>
+      </div>
+    </section>
+
+    <section class="grid" id="ledgers">
+      <div class="card">
+        <h2>10-Ledger Structure (Operational)</h2>
+        <p>
+          Controlled shells, market shells, land, lease, sale, vendor capacity, anchor institutions,
+          Fort Campbell/VA needs, historical archive, and documentation references.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>How COs Use This</h2>
+        <p>
+          NEED → SHELL → VENDOR. The map shows existence, control, and circulation geometry.
+          The cache shows proof. The ledger replaces meetings.
+        </p>
+      </div>
+
+      <div class="legend">
+        <h2>Legend (Visual Readiness)</h2>
+        <p style="margin:0; color:var(--muted)">
+          Readiness colors are visual indicators only. Control is asserted by ledger status.
+        </p>
+        <div class="kvs">
+          <div class="kv">
+            <b>CONTROLLED SHELLS <span class="pill p-teal">Layer 1</span></b>
+            <span>SHELL 190 • 3006 • 2419 • 2626 • 1121</span>
+          </div>
+          <div class="kv">
+            <b>LEASE / SALE / LAND <span class="pill p-amber">Layers 5–6</span></b>
+            <span>Market pathways. Non-controlled.</span>
+          </div>
+          <div class="kv">
+            <b>VENDOR CAPACITY <span class="pill p-green">Layer 7</span></b>
+            <span>42240-only activation support.</span>
+          </div>
+          <div class="kv">
+            <b>ANCHOR INSTITUTIONS <span class="pill p-teal">Layer 8</span></b>
+            <span>Legitimacy + routing authority nodes.</span>
+          </div>
+          <div class="kv">
+            <b>NEED PINS <span class="pill p-red">Layer 9</span></b>
+            <span>Problem statements that route missions.</span>
+          </div>
+          <div class="kv">
+            <b>HISTORICAL ARCHIVE <span class="pill p-amber">Layer 10</span></b>
+            <span>Memory only. Not routable.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="commerce">
+        <h2>Commerce (Dot → Storefront → Payments)</h2>
+        <p>
+          Apparel and digital assets route through the dot. Storefront is Shopify. Invoices and B2B billing route through Stripe.
+        </p>
+        <div class="btnrow">
+          <a class="btn secondary" href="#" title="Replace with your Shopify storefront URL">Open Shopify Store →</a>
+          <a class="btn secondary" href="#" title="Replace with your Stripe payment link / invoice portal">Open Stripe Pay Link →</a>
+        </div>
+      </div>
+
+      <div class="card" id="contact">
+        <h2>Contact (Operational)</h2>
+        <p>
+          Taylor Made Infrastructure Group LLC • 42240
+          <br/>
+          Email: <b>taylormadeinfrastructuregroup@gmail.com</b>
+        </p>
+        <div class="btnrow">
+          <a class="btn secondary" href="mailto:taylormadeinfrastructuregroup@gmail.com">Email TMI →</a>
+          <a class="btn secondary" href="https://github.com/taylor7617/tmi-group-2026" target="_blank" rel="noopener">GitHub Repo →</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      GI Code Note: This grid is not recreated. This page is a public index pointing to the authoritative map ledger.
+    </div>
+  </div>
+</body>
+</html>
