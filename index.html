@@ -1,260 +1,543 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TMI Group | 42240 Infrastructure Circulation Grid</title>
-  <meta name="description" content="Authoritative geospatial readiness and circulation ledger for Taylor Made Infrastructure Group LLC (NAICS 531120)." />
-  <style>
-    :root{
-      --bg:#05070b;
-      --panel:#0b111a;
-      --panel2:#071018;
-      --text:#e7f1ff;
-      --muted:#9bb0c9;
-      --line:rgba(120,190,255,.18);
-      --teal:#3be7ff;
-      --teal2:#00b3ff;
-      --amber:#ffcc66;
-      --green:#3dff9a;
-      --red:#ff4d6d;
-      --shadow:0 18px 45px rgba(0,0,0,.55);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 600px at 50% -10%, rgba(0,179,255,.18), transparent 60%),
-        radial-gradient(800px 500px at 10% 10%, rgba(59,231,255,.14), transparent 60%),
-        radial-gradient(900px 520px at 90% 20%, rgba(59,231,255,.10), transparent 55%),
-        linear-gradient(180deg, #03060a, #05070b 55%, #03060a);
-      color:var(--text);
-      line-height:1.35;
-    }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 60px;}
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:14px 16px; border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(11,17,26,.78), rgba(7,16,24,.65));
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      position:sticky; top:10px; z-index:10;
-      backdrop-filter: blur(10px);
-    }
-    .brand{display:flex; align-items:center; gap:12px; min-width:260px;}
-    .brand img{
-      width:42px; height:42px; border-radius:12px;
-      box-shadow:0 0 0 1px rgba(59,231,255,.25), 0 0 28px rgba(0,179,255,.18);
-    }
-    .brand .name{font-weight:800; letter-spacing:.3px}
-    .brand .sub{color:var(--muted); font-size:.88rem}
-    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .chip{
-      padding:9px 12px; border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(5,10,16,.55);
-      color:var(--muted);
-      font-size:.9rem;
-    }
-    .chip:hover{border-color:rgba(59,231,255,.35); color:var(--text)}
-    .hero{
-      margin-top:18px;
-      padding:26px 18px;
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background:
-        radial-gradient(700px 220px at 12% 0%, rgba(59,231,255,.14), transparent 65%),
-        radial-gradient(700px 260px at 88% 10%, rgba(0,179,255,.12), transparent 60%),
-        linear-gradient(180deg, rgba(11,17,26,.82), rgba(7,16,24,.62));
-      box-shadow:var(--shadow);
-    }
-    .hero h1{margin:0 0 10px; font-size:1.85rem; letter-spacing:.2px}
-    .hero p{margin:0; color:var(--muted); max-width:900px}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin-top:14px;
-    }
-    .card{
-      grid-column: span 6;
-      padding:16px;
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(11,17,26,.80), rgba(7,16,24,.62));
-      box-shadow:0 10px 30px rgba(0,0,0,.38);
-    }
-    .card h2{margin:0 0 8px; font-size:1.1rem}
-    .card p{margin:0; color:var(--muted)}
-    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius:12px;
-      border:1px solid rgba(59,231,255,.28);
-      background:linear-gradient(180deg, rgba(0,179,255,.16), rgba(59,231,255,.06));
-      color:var(--text);
-      font-weight:700;
-    }
-    .btn:hover{border-color:rgba(59,231,255,.45)}
-    .btn.secondary{
-      border-color:rgba(155,176,201,.22);
-      background:rgba(5,10,16,.45);
-      color:var(--muted);
-      font-weight:650;
-    }
-    .legend{
-      grid-column: span 12;
-      padding:16px;
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(11,17,26,.72), rgba(7,16,24,.58));
-    }
-    .kvs{display:grid; grid-template-columns: repeat(12, 1fr); gap:10px; margin-top:10px}
-    .kv{
-      grid-column: span 4;
-      border:1px solid rgba(120,190,255,.16);
-      border-radius:14px;
-      padding:12px;
-      background:rgba(3,6,10,.35);
-    }
-    .kv b{display:block; margin-bottom:6px}
-    .kv span{color:var(--muted); font-size:.95rem}
-    .pill{display:inline-block; padding:2px 10px; border-radius:999px; font-size:.82rem; margin-left:8px}
-    .p-teal{background:rgba(59,231,255,.12); border:1px solid rgba(59,231,255,.22)}
-    .p-amber{background:rgba(255,204,102,.12); border:1px solid rgba(255,204,102,.22)}
-    .p-green{background:rgba(61,255,154,.10); border:1px solid rgba(61,255,154,.18)}
-    .p-red{background:rgba(255,77,109,.10); border:1px solid rgba(255,77,109,.18)}
-    .footer{
-      margin-top:14px;
-      padding:16px;
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background:rgba(5,10,16,.45);
-      color:var(--muted);
-      font-size:.92rem;
-    }
-    @media (max-width: 880px){
-      .card{grid-column: span 12}
-      .kv{grid-column: span 12}
-      .brand{min-width:unset}
-      .nav{justify-content:flex-start}
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TMI Group | Private Capacity Ledger</title>
+  <meta name="description" content="TMI Group — private capacity ledger (documented & auditable internally)." />
+
+  <style>
+    :root{
+      --bg0:#05070c;
+      --bg1:#070b12;
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.14);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --text: rgba(255,255,255,.92);
+      --good: rgba(120,255,210,.92);
+      --warn: rgba(255,215,120,.92);
+      --bad: rgba(255,120,160,.92);
+      --glow: rgba(120,210,255,.85);
+      --glow2: rgba(170,120,255,.70);
+      --shadow: 0 18px 45px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(120,210,255,.14), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(170,120,255,.10), transparent 60%),
+        radial-gradient(1100px 700px at 65% 85%, rgba(120,255,210,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 22px 18px 36px;
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .brand .kicker{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:var(--muted2);
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:22px;
+      line-height:1.1;
+      font-weight:800;
+    }
+
+    .brand .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+      max-width: 720px;
+    }
+
+    .badge{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+      min-width: 260px;
+    }
+
+    .doctrine{
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      text-align:right;
+    }
+
+    .doctrine .line1{
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.02em;
+      color: rgba(255,255,255,.95);
+      text-shadow:
+        0 0 12px rgba(120,210,255,.22),
+        0 0 28px rgba(170,120,255,.12);
+    }
+
+    .doctrine .line2{
+      margin-top:4px;
+      font-size:12px;
+      color: rgba(255,255,255,.72);
+    }
+
+    .micro{
+      font-size:11px;
+      color: rgba(255,255,255,.52);
+    }
+
+    /* KPI Booths */
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap:10px;
+      margin: 14px 0 14px;
+    }
+
+    @media (max-width: 980px){
+      .kpis{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .badge{ align-items:flex-start; min-width: unset; }
+      header{ flex-direction:column; align-items:stretch; }
+      .doctrine{ text-align:left; }
+    }
+
+    .booth{
+      position:relative;
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--glass2), var(--glass));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .booth::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 180px at 20% 10%, rgba(120,210,255,.18), transparent 60%),
+        radial-gradient(320px 160px at 80% 20%, rgba(170,120,255,.14), transparent 60%),
+        radial-gradient(260px 160px at 60% 100%, rgba(120,255,210,.10), transparent 60%);
+      pointer-events:none;
+      filter: blur(8px);
+      opacity:.85;
+    }
+
+    .booth > .inner{
+      position:relative;
+      padding: 12px 12px 12px;
+      min-height: 86px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:8px;
+    }
+
+    .label{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color: rgba(255,255,255,.75);
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .pill{
+      font-size:10px;
+      letter-spacing:.08em;
+      padding:4px 8px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.20);
+      color: rgba(255,255,255,.70);
+      white-space:nowrap;
+    }
+
+    .value{
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing:.01em;
+    }
+
+    .hint{
+      font-size: 11px;
+      color: rgba(255,255,255,.58);
+      line-height:1.25;
+    }
+
+    .accent-good{ color: var(--good); }
+    .accent-warn{ color: var(--warn); }
+    .accent-bad{ color: var(--bad); }
+
+    /* Main Booth Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 2fr 1fr;
+      gap:12px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px 14px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    .panel-title h2{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.82);
+    }
+
+    .panel-title .right{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      color: rgba(255,255,255,.58);
+      font-size:11px;
+    }
+
+    .frame{
+      padding: 0;
+      height: 560px;
+    }
+
+    @media (max-width: 980px){
+      .frame{ height: 520px; }
+    }
+
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    /* Side Booths */
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .mini{
+      padding: 12px 14px;
+    }
+
+    .mini h3{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.80);
+    }
+
+    .mini p{
+      margin:0;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+      line-height:1.45;
+    }
+
+    .rule{
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px dashed rgba(255,255,255,.16);
+      color: rgba(255,255,255,.60);
+      font-size: 11px;
+      line-height:1.4;
+    }
+
+    .footer{
+      margin-top:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color: rgba(255,255,255,.52);
+      font-size:11px;
+    }
+
+    /* Small “console” look */
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      letter-spacing:.01em;
+    }
+
+    /* No external links: cursor behavior */
+    .no-links-note{
+      opacity:.75;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <img src="assets/tmi-logo.png" alt="TMI logo" />
-        <div>
-          <div class="name">Taylor Made Infrastructure Group (TMI)</div>
-          <div class="sub">42240 Infrastructure Circulation Grid • NAICS 531120</div>
-        </div>
-      </div>
-      <div class="nav">
-        <a class="chip" href="#grid">Grid SOP</a>
-        <a class="chip" href="#ledgers">Ledgers</a>
-        <a class="chip" href="#commerce">Commerce</a>
-        <a class="chip" href="#contact">Contact</a>
-      </div>
-    </div>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="kicker">TMI Group • Private Capacity Ledger</div>
+        <h1>42240 Geospatial Readiness Grid</h1>
+        <p class="sub">
+          This page is the <span class="mono">watch-friendly</span> public shell.
+          The embedded grid window is the authority. Evidence remains internal.
+        </p>
+      </div>
 
-    <section class="hero" id="grid">
-      <h1>Authoritative Readiness + Circulation Ledger (One-of-One)</h1>
-      <p>
-        This site is the public-facing shell of the 42240 grid. The map remains the authority.
-        No negotiations occur here. Availability precedes discussion.
-      </p>
-      <div class="btnrow">
-        <a class="btn" href="https://www.google.com/maps/d/edit?mid=1lBzuF9XyewzHmNiVOufMdqrbng_5Xf8&usp=sharing" target="_blank" rel="noopener">
-          Open 42240 Grid Map →
-        </a>
-        <a class="btn secondary" href="#ledgers">View Ledger Structure</a>
-        <a class="btn secondary" href="#commerce">Open Store & Payments</a>
-      </div>
-    </section>
+      <div class="badge">
+        <div class="doctrine">
+          <div class="line1">“Our execution is documented and auditable.”</div>
+          <div class="line2">If pressed: “Internally.”</div>
+        </div>
+        <div class="micro no-links-note">No outbound links. No negotiations. Evidence stays in the vault.</div>
+      </div>
+    </header>
 
-    <section class="grid" id="ledgers">
-      <div class="card">
-        <h2>10-Ledger Structure (Operational)</h2>
-        <p>
-          Controlled shells, market shells, land, lease, sale, vendor capacity, anchor institutions,
-          Fort Campbell/VA needs, historical archive, and documentation references.
-        </p>
-      </div>
+    <!-- KPI Booths -->
+    <section class="kpis" aria-label="KPI Booths">
+      <div class="booth"><div class="inner">
+        <div class="label"><span>Total Sites</span><span class="pill">Killer Q1</span></div>
+        <div class="value" id="kpiSites">—</div>
+        <div class="hint">Count of routable locations in ledger feed.</div>
+      </div></div>
 
-      <div class="card">
-        <h2>How COs Use This</h2>
-        <p>
-          NEED → SHELL → VENDOR. The map shows existence, control, and circulation geometry.
-          The cache shows proof. The ledger replaces meetings.
-        </p>
-      </div>
+      <div class="booth"><div class="inner">
+        <div class="label"><span>Total Sq Ft</span><span class="pill">Killer Q2</span></div>
+        <div class="value" id="kpiSqft">—</div>
+        <div class="hint">Aggregate controlled capacity footprint.</div>
+      </div></div>
 
-      <div class="legend">
-        <h2>Legend (Visual Readiness)</h2>
-        <p style="margin:0; color:var(--muted)">
-          Readiness colors are visual indicators only. Control is asserted by ledger status.
-        </p>
-        <div class="kvs">
-          <div class="kv">
-            <b>CONTROLLED SHELLS <span class="pill p-teal">Layer 1</span></b>
-            <span>SHELL 190 • 3006 • 2419 • 2626 • 1121</span>
-          </div>
-          <div class="kv">
-            <b>LEASE / SALE / LAND <span class="pill p-amber">Layers 5–6</span></b>
-            <span>Market pathways. Non-controlled.</span>
-          </div>
-          <div class="kv">
-            <b>VENDOR CAPACITY <span class="pill p-green">Layer 7</span></b>
-            <span>42240-only activation support.</span>
-          </div>
-          <div class="kv">
-            <b>ANCHOR INSTITUTIONS <span class="pill p-teal">Layer 8</span></b>
-            <span>Legitimacy + routing authority nodes.</span>
-          </div>
-          <div class="kv">
-            <b>NEED PINS <span class="pill p-red">Layer 9</span></b>
-            <span>Problem statements that route missions.</span>
-          </div>
-          <div class="kv">
-            <b>HISTORICAL ARCHIVE <span class="pill p-amber">Layer 10</span></b>
-            <span>Memory only. Not routable.</span>
-          </div>
-        </div>
-      </div>
+      <div class="booth"><div class="inner">
+        <div class="label"><span>Ready Sites</span><span class="pill">Killer Q3</span></div>
+        <div class="value accent-good" id="kpiReadySites">—</div>
+        <div class="hint">Sites marked <span class="mono">ready</span>.</div>
+      </div></div>
 
-      <div class="card" id="commerce">
-        <h2>Commerce (Dot → Storefront → Payments)</h2>
-        <p>
-          Apparel and digital assets route through the dot. Storefront is Shopify. Invoices and B2B billing route through Stripe.
-        </p>
-        <div class="btnrow">
-          <a class="btn secondary" href="#" title="Replace with your Shopify storefront URL">Open Shopify Store →</a>
-          <a class="btn secondary" href="#" title="Replace with your Stripe payment link / invoice portal">Open Stripe Pay Link →</a>
-        </div>
-      </div>
+      <div class="booth"><div class="inner">
+        <div class="label"><span>Ready Sq Ft</span><span class="pill">Killer Q4</span></div>
+        <div class="value accent-good" id="kpiReadySqft">—</div>
+        <div class="hint">Ready footprint available for activation.</div>
+      </div></div>
 
-      <div class="card" id="contact">
-        <h2>Contact (Operational)</h2>
-        <p>
-          Taylor Made Infrastructure Group LLC • 42240
-          <br/>
-          Email: <b>taylormadeinfrastructuregroup@gmail.com</b>
-        </p>
-        <div class="btnrow">
-          <a class="btn secondary" href="mailto:taylormadeinfrastructuregroup@gmail.com">Email TMI →</a>
-          <a class="btn secondary" href="https://github.com/taylor7617/tmi-group-2026" target="_blank" rel="noopener">GitHub Repo →</a>
-        </div>
-      </div>
-    </section>
+      <div class="booth"><div class="inner">
+        <div class="label"><span>72h ZIP Activations</span><span class="pill">Killer Q5</span></div>
+        <div class="value accent-warn" id="kpi72hZips">—</div>
+        <div class="hint">Distinct ZIPs with <span class="mono">24-72h</span> activation.</div>
+      </div></div>
+    </section>
 
-    <div class="footer">
-      GI Code Note: This grid is not recreated. This page is a public index pointing to the authoritative map ledger.
-    </div>
-  </div>
+    <!-- Main Booth Grid -->
+    <section class="grid" aria-label="Grid + Control Booths">
+      <!-- MAIN GRID WINDOW -->
+      <div class="booth">
+        <div class="panel-title">
+          <h2>Grid Window • Geospatial Ledger</h2>
+          <div class="right">
+            <span class="mono">mid=1lBzuF9XyewzHmNiVOufMdqrbng_5Xf8</span>
+          </div>
+        </div>
+        <div class="frame">
+          <!-- My Maps embed window -->
+          <iframe
+            title="TMI 42240 Grid Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/d/u/0/embed?mid=1lBzuF9XyewzHmNiVOufMdqrbng_5Xf8&ehbc=2E312F">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE BOOTHS -->
+      <div class="side">
+        <div class="booth">
+          <div class="inner mini">
+            <h3>Lane Separation</h3>
+            <p>
+              <span class="mono">wife_lane</span>: single-site control<br/>
+              <span class="mono">you_lane</span>: multi-site aggregation<br/>
+              <span class="mono">poc</span>: read-only proof view
+            </p>
+            <div class="rule mono">
+              External language:<br/>
+              “Our execution is documented and auditable.”<br/>
+              “Internally.”
+            </div>
+          </div>
+        </div>
+
+        <div class="booth">
+          <div class="inner mini">
+            <h3>What This Page Does</h3>
+            <p>
+              Displays the authoritative grid window and answers the five killer questions
+              without narrative. All proof remains internal.
+            </p>
+            <div class="rule">
+              KPI numbers are computed from a ledger feed (CSV pasted into this file, or later a BigQuery-exported JSON/CSV).
+            </div>
+          </div>
+        </div>
+
+        <div class="booth">
+          <div class="inner mini">
+            <h3>Internal Legal Summary</h3>
+            <p class="mono">
+              TMI Group operates a privately controlled, multi-site capacity ledger and evidence vault documenting leasehold control, readiness status, and activation timelines for mission-support space under NAICS 531120.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>NAICS 531120 • Private Capacity Ledger</div>
+      <div class="mono">TMI • documented • auditable • internal</div>
+    </div>
+  </div>
+
+  <script>
+    /**************************************************************
+     * LEDGER FEED (PASTE CSV EXPORT FROM MY MAPS LAYER HERE)
+     *
+     * Required columns (case-insensitive):
+     *   - zip
+     *   - sqft
+     *   - status  (ready|pending|reserved|inactive)
+     * Optional:
+     *   - activation_window (24-72h|3-7d|7-14d|14+d)
+     *
+     * How to get it:
+     *   Google My Maps -> layer menu -> Export data -> CSV  (then paste)
+     **************************************************************/
+    const SITES_CSV = `
+zip,sqft,status,activation_window
+42240,1200,ready,24-72h
+42240,2400,ready,3-7d
+42240,1800,pending,7-14d
+42240,3200,reserved,14+d
+    `.trim();
+
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(",").map(h => h.trim().toLowerCase());
+      const rows = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(",").map(c => c.trim());
+        const row = {};
+        headers.forEach((h, idx) => row[h] = (cols[idx] ?? "").trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function toInt(n) {
+      const x = String(n ?? "").replace(/[^0-9]/g, "");
+      return x ? parseInt(x, 10) : 0;
+    }
+
+    function normStatus(s) {
+      const v = String(s ?? "").toLowerCase().trim();
+      if (["ready","pending","reserved","inactive"].includes(v)) return v;
+      return "pending";
+    }
+
+    function normActivation(w) {
+      const v = String(w ?? "").toLowerCase().trim();
+      if (!v) return "";
+      return v;
+    }
+
+    function formatNumber(n) {
+      return new Intl.NumberFormat("en-US").format(n);
+    }
+
+    function computeKPIs(rows) {
+      const sites = rows.map(r => ({
+        zip: String(r.zip ?? "").trim(),
+        sqft: toInt(r.sqft),
+        status: normStatus(r.status),
+        activation_window: normActivation(r.activation_window)
+      }));
+
+      const totalSites = sites.length;
+      const totalSqft = sites.reduce((a,s) => a + s.sqft, 0);
+
+      const ready = sites.filter(s => s.status === "ready");
+      const readySites = ready.length;
+      const readySqft = ready.reduce((a,s) => a + s.sqft, 0);
+
+      const zips72 = new Set(
+        sites
+          .filter(s => s.activation_window === "24-72h")
+          .map(s => s.zip)
+          .filter(Boolean)
+      );
+
+      return { totalSites, totalSqft, readySites, readySqft, zips72Count: zips72.size };
+    }
+
+    function paintKPIs(k) {
+      document.getElementById("kpiSites").textContent = formatNumber(k.totalSites);
+      document.getElementById("kpiSqft").textContent = formatNumber(k.totalSqft);
+      document.getElementById("kpiReadySites").textContent = formatNumber(k.readySites);
+      document.getElementById("kpiReadySqft").textContent = formatNumber(k.readySqft);
+      document.getElementById("kpi72hZips").textContent = formatNumber(k.zips72Count);
+    }
+
+    (function init(){
+      const rows = parseCSV(SITES_CSV);
+      const k = computeKPIs(rows);
+      paintKPIs(k);
+    })();
+  </script>
 </body>
 </html>
+
+    <
